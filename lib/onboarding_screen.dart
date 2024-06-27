@@ -14,22 +14,14 @@ class OnboardingScreen extends StatelessWidget {
     return Scaffold(
       body: OnboardingPagePresenter(pages: [
         OnboardingPageModel(
-          title: 'Swipe up to see more',
-          description:
-              'News and article based on what’s happening and your interest',
-          imageUrl: 'assets/animations/onboarding1.json',
-          bgColor: Colors.white,
-        ),
-        OnboardingPageModel(
-          title: 'Swipe left to see detail',
-          description: 'See news detail by swiping left on post',
+          title: 'Browse Our Library',
+          description: 'Curated e-books based on your interest',
           imageUrl: 'assets/animations/onboarding2.json',
           bgColor: Colors.white,
         ),
         OnboardingPageModel(
-          title: 'Save your time with Snap Mode',
-          description:
-              'Read snap under one minute without losing the main topic',
+          title: 'Read With Ease',
+          description: 'Read e-books directly in your devices',
           imageUrl: 'assets/animations/onboarding3.json',
           bgColor: Colors.white,
         ),
@@ -82,30 +74,14 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                     const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
               child: const Icon(Icons.arrow_back_ios_new)),
-          title: Row(
+          title: const Row(
             children: [
-              const Expanded(
+              Expanded(
                 flex: 1,
                 child: Padding(
                   padding: EdgeInsets.all(32.0),
                 ),
               ),
-              TextButton(
-                  onPressed: () {
-                    _pageController.animateToPage(widget.pages.length - 1,
-                        curve: Curves.easeInOutCubic,
-                        duration: const Duration(milliseconds: 250));
-                  },
-                  style: TextButton.styleFrom(
-                    visualDensity: VisualDensity.comfortable,
-                    foregroundColor: const Color(0xff8F17D8),
-                    textStyle: const TextStyle(
-                        fontSize: 17, fontWeight: FontWeight.bold),
-                  ),
-                  child: const Text("Skip",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 17, fontWeight: FontWeight.w400))),
             ],
           )),
       body: AnimatedContainer(
@@ -180,8 +156,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                             child: Lottie.asset(
                               item.imageUrl,
                               width: 300,
-                              height: 300,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fitWidth,
                             ),
                           ),
                         ),
@@ -212,7 +187,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                   },
                   child: Text(
                     _currentPage == widget.pages.length - 1
-                        ? "Get Started to Mata"
+                        ? "Get Started"
                         : "Next",
                   ),
                 ),

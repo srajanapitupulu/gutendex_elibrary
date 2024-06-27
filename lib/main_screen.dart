@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:gutendex_elibrary/pages/history_screen.dart';
 import 'package:gutendex_elibrary/pages/home_screen.dart';
 import 'package:gutendex_elibrary/pages/liked_screen.dart';
@@ -52,19 +53,19 @@ class _MainScreenState extends State<MainScreen> {
       const BottomNavigationBarItem(
         label: "",
         icon: ImageIcon(
-          AssetImage("assets/icons/ic_house.png"),
+          Svg("assets/icons/ic_heart.svg"),
         ),
         activeIcon: ImageIcon(
-          AssetImage("assets/icons/ic_house_filled.png"),
+          Svg("assets/icons/ic_heart_filled.svg"),
         ),
       ),
       const BottomNavigationBarItem(
         label: "",
         icon: ImageIcon(
-          AssetImage("assets/icons/ic_house.png"),
+          Svg("assets/icons/ic_history.svg"),
         ),
         activeIcon: ImageIcon(
-          AssetImage("assets/icons/ic_house_filled.png"),
+          Svg("assets/icons/ic_history_filled.svg"),
         ),
       ),
     ];

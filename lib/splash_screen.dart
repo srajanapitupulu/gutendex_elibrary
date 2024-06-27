@@ -39,11 +39,11 @@ class SplashScreen extends StatelessWidget {
             } else if (snapshot.hasError) {
               return ErrorWidget(snapshot.error!);
             } else {
-              if (snapshot.data == true) {
-                return const OnboardingScreen();
-              } else {
-                return const MainScreen();
-              }
+              // if (snapshot.data == true) {
+              return const OnboardingScreen();
+              // } else {
+              //   return const MainScreen();
+              // }
             }
           },
         ),
