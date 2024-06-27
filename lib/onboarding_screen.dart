@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:lottie/lottie.dart';
 import 'package:gutendex_elibrary/helpers/ui/custom_button.dart';
 import 'package:gutendex_elibrary/main_screen.dart';
 
@@ -15,31 +17,20 @@ class OnboardingScreen extends StatelessWidget {
           title: 'Swipe up to see more',
           description:
               'News and article based on what’s happening and your interest',
-          imageUrl:
-              const Image(image: AssetImage('assets/icons/onboard_1.png')),
+          imageUrl: 'assets/animations/onboarding1.json',
           bgColor: Colors.white,
         ),
         OnboardingPageModel(
           title: 'Swipe left to see detail',
           description: 'See news detail by swiping left on post',
-          imageUrl:
-              const Image(image: AssetImage('assets/icons/onboard_2.png')),
+          imageUrl: 'assets/animations/onboarding2.json',
           bgColor: Colors.white,
         ),
         OnboardingPageModel(
           title: 'Save your time with Snap Mode',
           description:
               'Read snap under one minute without losing the main topic',
-          imageUrl:
-              const Image(image: AssetImage('assets/icons/onboard_3.png')),
-          bgColor: Colors.white,
-        ),
-        OnboardingPageModel(
-          title: 'Read with no distraction',
-          description:
-              'No messy layout and disturbing ads when reading your news or article',
-          imageUrl:
-              const Image(image: AssetImage('assets/icons/onboard_4.png')),
+          imageUrl: 'assets/animations/onboarding3.json',
           bgColor: Colors.white,
         ),
       ]),
@@ -186,7 +177,12 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           flex: 3,
                           child: Padding(
                             padding: const EdgeInsets.all(32.0),
-                            child: item.imageUrl,
+                            child: Lottie.asset(
+                              item.imageUrl,
+                              width: 300,
+                              height: 300,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ],
@@ -232,7 +228,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
 class OnboardingPageModel {
   final String title;
   final String description;
-  final Image imageUrl;
+  final String imageUrl;
   final Color bgColor;
   final Color textColor;
 
