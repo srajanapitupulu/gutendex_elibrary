@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:gutendex_elibrary/helpers/constants/colors.dart';
 import 'package:gutendex_elibrary/pages/history_screen.dart';
 import 'package:gutendex_elibrary/pages/home_screen.dart';
 import 'package:gutendex_elibrary/pages/liked_screen.dart';
@@ -44,28 +45,19 @@ class _MainScreenState extends State<MainScreen> {
       const BottomNavigationBarItem(
         label: "",
         icon: ImageIcon(
-          AssetImage("assets/icons/ic_house.png"),
-        ),
-        activeIcon: ImageIcon(
-          AssetImage("assets/icons/ic_house_filled.png"),
+          AssetImage("assets/icons/ic_home.png"),
         ),
       ),
       const BottomNavigationBarItem(
         label: "",
         icon: ImageIcon(
-          Svg("assets/icons/ic_heart.svg"),
-        ),
-        activeIcon: ImageIcon(
-          Svg("assets/icons/ic_heart_filled.svg"),
+          AssetImage("assets/icons/ic_like.png"),
         ),
       ),
       const BottomNavigationBarItem(
         label: "",
         icon: ImageIcon(
-          Svg("assets/icons/ic_history.svg"),
-        ),
-        activeIcon: ImageIcon(
-          Svg("assets/icons/ic_history_filled.svg"),
+          AssetImage("assets/icons/ic_history.png"),
         ),
       ),
     ];
@@ -86,9 +78,9 @@ class _MainScreenState extends State<MainScreen> {
         items: _bottomNavigationItems(),
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
-        backgroundColor: const Color(0xff1F1F1F),
-        selectedItemColor: const Color(0xff8F17D8),
-        unselectedItemColor: const Color(0xff5C5C5C),
+        backgroundColor: whiteBGColor,
+        selectedItemColor: primaryColor,
+        unselectedItemColor: darkGrayColor,
         onTap: (index) {
           setState(() {
             _selectedIndex = index;
