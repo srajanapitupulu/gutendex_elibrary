@@ -20,7 +20,7 @@ class BookCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
               child: Image.network(
-                book.coverImage,
+                book.coverUrl,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
@@ -41,7 +41,7 @@ class BookCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
-              book.author,
+              book.authors[0],
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
