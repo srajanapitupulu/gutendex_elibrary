@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gutendex_elibrary/helpers/constants/strings.dart';
-import 'package:gutendex_elibrary/main_screen.dart';
 import 'package:gutendex_elibrary/onboarding_screen.dart';
 
 class SplashScreen extends StatelessWidget {
