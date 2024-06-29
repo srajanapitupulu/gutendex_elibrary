@@ -16,11 +16,19 @@ class Book extends HiveObject {
   @HiveField(3)
   final String coverUrl;
 
+  @HiveField(4)
+  final List<String> subjects;
+
+  @HiveField(5)
+  final List<String> languages;
+
   Book({
     required this.id,
     required this.title,
     required this.authors,
     required this.coverUrl,
+    required this.subjects,
+    required this.languages,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -29,6 +37,9 @@ class Book extends HiveObject {
       title: json['title'],
       authors:
           List<String>.from(json['authors'].map((author) => author['name'])),
+      subjects: List<String>.from(json['subjects'].map((subject) => subject)),
+      languages:
+          List<String>.from(json['languages'].map((languages) => languages)),
       coverUrl: json['formats']['image/jpeg'],
     );
   }
@@ -39,6 +50,8 @@ class Book extends HiveObject {
       'id': id,
       'title': title,
       'authors': authors.join(','),
+      'subjects': subjects.join(','),
+      'languages': languages.join(','),
       'coverUrl': coverUrl,
     };
   }
@@ -49,6 +62,8 @@ class Book extends HiveObject {
       id: map['id'],
       title: map['title'],
       authors: map['authors'].split(','),
+      subjects: map['subjects'].split(','),
+      languages: map['languages'].split(','),
       coverUrl: map['coverUrl'],
     );
   }

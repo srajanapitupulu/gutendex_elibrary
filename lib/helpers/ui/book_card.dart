@@ -70,7 +70,7 @@ class _BookCardState extends State<BookCard> {
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                   width: double.infinity,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
             ),

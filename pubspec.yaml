@@ -90,16 +90,21 @@ flutter:
   # https://flutter.dev/assets-and-images/#from-packages
   
   fonts:
-    - family: Inter
+    - family: JosefinSans
       fonts:
-        - asset: assets/fonts/Inter-Regular.ttf
-        - asset: assets/fonts/Inter-Black.ttf
-        - asset: assets/fonts/Inter-Bold.ttf
-        - asset: assets/fonts/Inter-ExtraBold.ttf
-        - asset: assets/fonts/Inter-ExtraLight.ttf
-        - asset: assets/fonts/Inter-Light.ttf
-        - asset: assets/fonts/Inter-Medium.ttf
-        - asset: assets/fonts/Inter-SemiBold.ttf
-        - asset: assets/fonts/Inter-Thin.ttf
+        - asset: assets/fonts/JosefinSans-Bold.ttf
+        - asset: assets/fonts/JosefinSans-BoldItalic.ttf
+        - asset: assets/fonts/JosefinSans-ExtraLight.ttf
+        - asset: assets/fonts/JosefinSans-ExtraLightItalic.ttf
+        - asset: assets/fonts/JosefinSans-Italic.ttf
+        - asset: assets/fonts/JosefinSans-Light.ttf
+        - asset: assets/fonts/JosefinSans-LightItalic.ttf
+        - asset: assets/fonts/JosefinSans-Medium.ttf
+        - asset: assets/fonts/JosefinSans-MediumItalic.ttf
+        - asset: assets/fonts/JosefinSans-Regular.ttf
+        - asset: assets/fonts/JosefinSans-SemiBold.ttf
+        - asset: assets/fonts/JosefinSans-SemiBoldItalic.ttf
+        - asset: assets/fonts/JosefinSans-Thin.ttf
+        - asset: assets/fonts/JosefinSans-ThinItalic.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

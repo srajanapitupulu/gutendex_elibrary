@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gutendex_elibrary/helpers/constants/colors.dart';
 import 'package:gutendex_elibrary/models/book.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:gutendex_elibrary/splash_screen.dart';
@@ -37,6 +38,11 @@ class _MyAppState extends State<MyApp> {
       builder: Builder(
         builder: (context) {
           return MaterialApp(
+            theme: ThemeData(
+              fontFamily: 'JosefinSans',
+              brightness: Brightness.light,
+              primaryColor: blackColor,
+            ),
             debugShowCheckedModeBanner: false,
             initialRoute: SplashScreen.routeName,
             routes: <String, WidgetBuilder>{

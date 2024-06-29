@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/widgets.dart';
+import 'package:gutendex_elibrary/helpers/constants/colors.dart';
+import 'package:gutendex_elibrary/helpers/constants/constants.dart';
 import 'package:gutendex_elibrary/helpers/database/database_helper.dart';
+import 'package:gutendex_elibrary/helpers/ui/subject_container.dart';
 import 'package:gutendex_elibrary/models/book.dart';
 
 class BookDetailPage extends StatefulWidget {
@@ -46,20 +50,30 @@ class _BookDetailPageState extends State<BookDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.book.title),
+        title: Text(
+          widget.book.title,
+          style: const TextStyle(
+            color: blackColor,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        foregroundColor: primaryColor,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CachedNetworkImage(
-              imageUrl: widget.book.coverUrl,
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(),
+            Center(
+              child: CachedNetworkImage(
+                imageUrl: widget.book.coverUrl,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                width: ScreenUtil.screenSize(context).width * 0.5,
+                height: ScreenUtil.screenSize(context).width * 0.8,
+                fit: BoxFit.contain,
               ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              width: double.infinity,
-              height: 300,
-              fit: BoxFit.cover,
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -67,39 +81,53 @@ class _BookDetailPageState extends State<BookDetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         child: Text(
                           widget.book.title,
                           style: const TextStyle(
-                            fontSize: 24,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                       IconButton(
                         icon: Icon(
-                          isLiked ? Icons.thumb_up : Icons.thumb_up_off_alt,
-                          color: isLiked ? Colors.blue : null,
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                          color: isLiked ? Colors.red : null,
                         ),
                         onPressed: _toggleLike,
+                        iconSize: 30,
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Text(
                     widget.book.authors.join(', '),
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey[600],
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: grayColor,
                     ),
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'Recommended Books',
+                    "Language: ",
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: blackColor,
+                      fontFamily: 'JosefinSans',
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  SubjectsList(subjects: widget.book.subjects),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'More by this Author',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   const SizedBox(height: 8),

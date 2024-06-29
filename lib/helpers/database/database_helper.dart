@@ -50,6 +50,8 @@ class DatabaseHelper {
         id: maps[i]['id'],
         title: maps[i]['title'],
         authors: maps[i]['authors'].split(','),
+        subjects: maps[i]['subjects'].split(','),
+        languages: maps[i]['languages'].split(','),
         coverUrl: maps[i]['coverUrl'],
       );
     });
