@@ -22,11 +22,12 @@ class BookLoading extends BookState {
 
 class BookLoaded extends BookState {
   final List<Book> books;
+  final String? nextUrl;
 
-  const BookLoaded({required this.books});
+  const BookLoaded(this.books, this.nextUrl);
 
   @override
-  List<Object?> get props => [books];
+  List<Object> get props => [books, nextUrl ?? ''];
 }
 
 class BookError extends BookState {

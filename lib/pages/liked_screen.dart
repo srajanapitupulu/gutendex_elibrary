@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gutendex_elibrary/helpers/constants/colors.dart';
 import 'package:gutendex_elibrary/helpers/database/database_helper.dart';
 import 'package:gutendex_elibrary/helpers/ui/book_card.dart';
 import 'package:gutendex_elibrary/models/book.dart';
@@ -27,7 +28,17 @@ class _LikedScreenState extends State<LikedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Liked Books'),
+        automaticallyImplyLeading: false,
+        elevation: 0.0,
+        foregroundColor: whiteBGColor,
+        backgroundColor: primaryColor,
+        title: const Text(
+          "Liked Books",
+          style: (TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          )),
+        ),
       ),
       body: FutureBuilder<List<Book>>(
         future: _likedBooks,
@@ -45,7 +56,7 @@ class _LikedScreenState extends State<LikedScreen> {
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 2,
-              childAspectRatio: 0.7,
+              childAspectRatio: 0.5,
             ),
             itemCount: likedBooks.length,
             itemBuilder: (context, index) {

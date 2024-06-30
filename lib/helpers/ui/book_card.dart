@@ -14,7 +14,7 @@ class BookCard extends StatefulWidget {
 }
 
 class _BookCardState extends State<BookCard> {
-  late bool isLiked;
+  late bool isLiked = false;
 
   @override
   void initState() {
@@ -46,7 +46,6 @@ class _BookCardState extends State<BookCard> {
           MaterialPageRoute(
             builder: (context) => BookDetailPage(
               book: widget.book,
-              recommendedBooks: [], // Pass the list of recommended books
             ),
           ),
         );
@@ -64,13 +63,13 @@ class _BookCardState extends State<BookCard> {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(12)),
                 child: CachedNetworkImage(
-                  imageUrl: "", //.widget.book.coverUrl,
+                  imageUrl: "widget.book.coverUrl",
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                   width: double.infinity,
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.fitHeight,
                 ),
               ),
             ),
@@ -94,6 +93,8 @@ class _BookCardState extends State<BookCard> {
                   fontSize: 14,
                   color: Colors.grey[600],
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             IconButton(

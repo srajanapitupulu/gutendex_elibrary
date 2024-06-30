@@ -1,26 +1,24 @@
 // cubit/book_cubit.dart
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gutendex_elibrary/helpers/services/api_service.dart';
 import 'package:gutendex_elibrary/models/book.dart';
 import 'package:hive/hive.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 part 'book_state.dart';
 
 class BookCubit extends Cubit<BookState> {
-  BookCubit() : super(BookInitial()) {
+  final ApiService apiService;
+
+  BookCubit(this.apiService) : super(BookInitial()) {
     _loadCachedBooks();
   }
 
-  final String _baseUrl = 'https://gutendex.com/books';
-  String? _nextUrl;
-
   Future<void> _loadCachedBooks() async {
-    final box = await Hive.openBox<Book>('books');
+    final box = await Hive.openBox<Book>('booksCache');
     final cachedBooks = box.values.toList();
     if (cachedBooks.isNotEmpty) {
-      emit(BookLoaded(books: cachedBooks));
+      emit(BookLoaded(cachedBooks, ''));
     }
   }
 
@@ -34,32 +32,40 @@ class BookCubit extends Cubit<BookState> {
       oldBooks = currentState.books;
     }
 
-    emit(BookLoading(oldBooks, isFirstFetch: _nextUrl == null));
+    emit(BookLoading(oldBooks, isFirstFetch: true));
 
     try {
-      final response = await http.get(Uri.parse(_nextUrl ?? _baseUrl));
-      if (response.statusCode == 200) {
-        final jsonResponse = json.decode(response.body);
-        _nextUrl = jsonResponse['next'];
-        print("Next page: $_nextUrl");
-        final List<Book> books = List<Book>.from(
-            jsonResponse['results'].map((book) => Book.fromJson(book)));
-
-        final box = await Hive.openBox<Book>('books');
-
-        for (var book in books) {
-          print(book.title);
-          box.put(book.id, book);
-        }
-
-        emit(BookLoaded(books: oldBooks + books));
-      } else {
-        emit(const BookError('Failed to fetch books'));
-      }
+      final response = await apiService.fetchBooks();
+      emit(BookLoaded(response.books, response.nextUrl));
     } catch (e) {
       emit(BookError(e.toString()));
     }
-
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`");
   }
+
+  Future<void> fetchMoreBooks(String nextUrl) async {
+    if (state is BookLoaded) {
+      final currentState = state as BookLoaded;
+      try {
+        final response = await apiService.fetchBooksFromUrl(nextUrl);
+        emit(BookLoaded(
+          currentState.books + response.books,
+          response.nextUrl,
+        ));
+      } catch (e) {
+        emit(BookError(e.toString()));
+      }
+    }
+  }
+
+  // void fetchBooksByAuthor(String authorLastName) async {
+  //   emit(RecommendedBooksLoading());
+  //   try {
+  //     final books = await apiService.fetchBooksByAuthor(authorLastName);
+  //     print(books);
+  //     emit(RecommendedBooksLoaded(books));
+  //   } catch (e) {
+  //     print(e.toString());
+  //     emit(RecommendedBooksError(e.toString()));
+  //   }
+  // }
 }

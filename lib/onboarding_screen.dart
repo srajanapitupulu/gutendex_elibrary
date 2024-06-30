@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:gutendex_elibrary/helpers/constants/strings.dart';
 
 import 'package:lottie/lottie.dart';
 import 'package:gutendex_elibrary/helpers/ui/custom_button.dart';
@@ -46,8 +48,19 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
   // Store the currently visible page
   int _currentPage = 0;
 
+  final storage = const FlutterSecureStorage();
+
   // Define a controller for the pageview
   final PageController _pageController = PageController(initialPage: 0);
+
+  Future<bool> setFirstInstall() async {
+    await storage.write(key: isFirstInstall, value: isFirstInstall);
+    String? token = await storage.read(key: isFirstInstall) ?? "";
+    if (token.isNotEmpty) {
+      return true;
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,15 +183,16 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                 height: 40,
                 child: CustomButton(
                   buttonType: CustomButtonType.primary,
-                  onPressed: () {
+                  onPressed: () async {
                     if (_currentPage == widget.pages.length - 1) {
-                      // widget.onFinish?.call();
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MainScreen()),
-                      );
+                      if (await setFirstInstall()) {
+                        Navigator.push(
+                          // ignore: use_build_context_synchronously
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MainScreen()),
+                        );
+                      }
                     } else {
                       _pageController.animateToPage(_currentPage + 1,
                           curve: Curves.easeInOutCubic,

@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gutendex_elibrary/helpers/constants/colors.dart';
 import 'package:gutendex_elibrary/helpers/constants/constants.dart';
 import 'package:gutendex_elibrary/helpers/database/database_helper.dart';
+import 'package:gutendex_elibrary/helpers/services/api_service.dart';
+import 'package:gutendex_elibrary/helpers/services/recommendation_cubit.dart';
+import 'package:gutendex_elibrary/helpers/ui/recommendation_container.dart';
 import 'package:gutendex_elibrary/helpers/ui/subject_container.dart';
 import 'package:gutendex_elibrary/models/book.dart';
 
 class BookDetailPage extends StatefulWidget {
   final Book book;
-  final List<Book> recommendedBooks;
 
-  const BookDetailPage({
-    super.key,
-    required this.book,
-    required this.recommendedBooks,
-  });
+  const BookDetailPage({super.key, required this.book});
 
   @override
   State<BookDetailPage> createState() => _BookDetailPageState();
 }
 
 class _BookDetailPageState extends State<BookDetailPage> {
-  late bool isLiked;
+  late bool isLiked = false;
 
   @override
   void initState() {
@@ -69,7 +67,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
                 placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(),
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) {
+                  return const Icon(Icons.error);
+                },
                 width: ScreenUtil.screenSize(context).width * 0.5,
                 height: ScreenUtil.screenSize(context).width * 0.8,
                 fit: BoxFit.contain,
@@ -122,7 +122,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   ),
                   const SizedBox(height: 16),
                   SubjectsList(subjects: widget.book.subjects),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 30),
                   const Text(
                     'More by this Author',
                     style: TextStyle(
@@ -131,85 +131,17 @@ class _BookDetailPageState extends State<BookDetailPage> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Container(
-                    height: 200,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: widget.recommendedBooks.length,
-                      itemBuilder: (context, index) {
-                        return RecommendedBookCard(
-                          book: widget.recommendedBooks[index],
-                        );
-                      },
-                    ),
+                  BlocProvider(
+                    create: (context) => RecommendedBooksCubit(ApiService())
+                      ..fetchBooksByAuthor(
+                          widget.book.authors.first.split(' ').first),
+                    child: Container(
+                        constraints: const BoxConstraints(maxHeight: 300),
+                        child: const RecommendationContainer()),
                   ),
+                  const SizedBox(height: 30),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class RecommendedBookCard extends StatelessWidget {
-  final Book book;
-
-  const RecommendedBookCard({super.key, required this.book});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => BookDetailPage(
-              book: book,
-              recommendedBooks: [], // You can pass another list of recommended books here
-            ),
-          ),
-        );
-      },
-      child: Container(
-        width: 120,
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: CachedNetworkImage(
-                  imageUrl: book.coverUrl,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              book.title,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              book.authors.join(', '),
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

@@ -23,13 +23,15 @@ class BookAdapter extends TypeAdapter<Book> {
       coverUrl: fields[3] as String,
       subjects: (fields[4] as List).cast<String>(),
       languages: (fields[5] as List).cast<String>(),
+      mediatype: fields[6] as String,
+      bookUrl: fields[7] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Book obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +43,11 @@ class BookAdapter extends TypeAdapter<Book> {
       ..writeByte(4)
       ..write(obj.subjects)
       ..writeByte(5)
-      ..write(obj.languages);
+      ..write(obj.languages)
+      ..writeByte(6)
+      ..write(obj.mediatype)
+      ..writeByte(7)
+      ..write(obj.bookUrl);
   }
 
   @override

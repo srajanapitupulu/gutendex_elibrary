@@ -22,6 +22,12 @@ class Book extends HiveObject {
   @HiveField(5)
   final List<String> languages;
 
+  @HiveField(6)
+  final String mediatype;
+
+  @HiveField(7)
+  final String bookUrl;
+
   Book({
     required this.id,
     required this.title,
@@ -29,6 +35,8 @@ class Book extends HiveObject {
     required this.coverUrl,
     required this.subjects,
     required this.languages,
+    required this.mediatype,
+    required this.bookUrl,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -40,7 +48,9 @@ class Book extends HiveObject {
       subjects: List<String>.from(json['subjects'].map((subject) => subject)),
       languages:
           List<String>.from(json['languages'].map((languages) => languages)),
-      coverUrl: json['formats']['image/jpeg'],
+      coverUrl: json['formats']['image/jpeg'] ?? " ",
+      mediatype: json['media_type'] ?? "Text",
+      bookUrl: json['formats']['text/html'] ?? " ",
     );
   }
 
@@ -53,6 +63,8 @@ class Book extends HiveObject {
       'subjects': subjects.join(','),
       'languages': languages.join(','),
       'coverUrl': coverUrl,
+      'mediatype': mediatype,
+      'bookUrl': bookUrl,
     };
   }
 
@@ -65,38 +77,8 @@ class Book extends HiveObject {
       subjects: map['subjects'].split(','),
       languages: map['languages'].split(','),
       coverUrl: map['coverUrl'],
+      mediatype: map['mediatype'],
+      bookUrl: map['bookUrl'],
     );
   }
 }
-
-// Run the following command to generate the `book.g.dart` file:
-// flutter packages pub run build_runner build
-
-// import 'package:equatable/equatable.dart';
-
-// class Book extends Equatable {
-//   final int id;
-//   final String title;
-//   final List<String> authors;
-//   final String coverUrl;
-
-//   const Book({
-//     required this.id,
-//     required this.title,
-//     required this.authors,
-//     required this.coverUrl,
-//   });
-
-//   factory Book.fromJson(Map<String, dynamic> json) {
-//     return Book(
-//       id: json['id'],
-//       title: json['title'],
-//       authors:
-//           List<String>.from(json['authors'].map((author) => author['name'])),
-//       coverUrl: json['formats']['image/jpeg'],
-//     );
-//   }
-
-//   @override
-//   List<Object?> get props => [id, title, authors, coverUrl];
-// }

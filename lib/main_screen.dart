@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gutendex_elibrary/helpers/constants/colors.dart';
+import 'package:gutendex_elibrary/helpers/services/api_service.dart';
 import 'package:gutendex_elibrary/helpers/services/book_cubit.dart';
 import 'package:gutendex_elibrary/pages/history_screen.dart';
 import 'package:gutendex_elibrary/pages/home_screen.dart';
@@ -32,7 +33,7 @@ class _MainScreenState extends State<MainScreen> {
 
     listOfWidgets = <Widget>[
       BlocProvider(
-        create: (context) => BookCubit()..fetchBooks(),
+        create: (context) => BookCubit(ApiService())..fetchBooks(),
         child: const HomeScreen(),
       ),
       const LikedScreen(),

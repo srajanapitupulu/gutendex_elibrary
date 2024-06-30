@@ -31,7 +31,11 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY,
         title TEXT,
         authors TEXT,
-        coverUrl TEXT
+        languages TEXT,
+        subjects TEXT,
+        mediatype TEXT,
+        coverUrl TEXT,
+        bookUrl TEXT
       )
     ''');
   }
@@ -53,6 +57,8 @@ class DatabaseHelper {
         subjects: maps[i]['subjects'].split(','),
         languages: maps[i]['languages'].split(','),
         coverUrl: maps[i]['coverUrl'],
+        mediatype: maps[i]['mediatype'],
+        bookUrl: maps[i]['bookUrl'],
       );
     });
   }

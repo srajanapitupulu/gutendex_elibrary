@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gutendex_elibrary/helpers/constants/strings.dart';
+import 'package:gutendex_elibrary/main_screen.dart';
 import 'package:gutendex_elibrary/onboarding_screen.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -38,11 +39,11 @@ class SplashScreen extends StatelessWidget {
             } else if (snapshot.hasError) {
               return ErrorWidget(snapshot.error!);
             } else {
-              // if (snapshot.data == true) {
-              return const OnboardingScreen();
-              // } else {
-              //   return const MainScreen();
-              // }
+              if (snapshot.data == true) {
+                return const MainScreen();
+              } else {
+                return const OnboardingScreen();
+              }
             }
           },
         ),
