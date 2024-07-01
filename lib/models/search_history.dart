@@ -9,4 +9,7 @@ class SearchHistory extends HiveObject {
 
   @HiveField(1)
   late DateTime timestamp;
+
+  @HiveField(2)
+  late String searchBy;
 }

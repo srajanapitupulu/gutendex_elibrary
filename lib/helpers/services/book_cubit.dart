@@ -56,16 +56,4 @@ class BookCubit extends Cubit<BookState> {
       }
     }
   }
-
-  // void fetchBooksByAuthor(String authorLastName) async {
-  //   emit(RecommendedBooksLoading());
-  //   try {
-  //     final books = await apiService.fetchBooksByAuthor(authorLastName);
-  //     print(books);
-  //     emit(RecommendedBooksLoaded(books));
-  //   } catch (e) {
-  //     print(e.toString());
-  //     emit(RecommendedBooksError(e.toString()));
-  //   }
-  // }
 }

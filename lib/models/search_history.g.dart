@@ -18,17 +18,20 @@ class SearchHistoryAdapter extends TypeAdapter<SearchHistory> {
     };
     return SearchHistory()
       ..query = fields[0] as String
-      ..timestamp = fields[1] as DateTime;
+      ..timestamp = fields[1] as DateTime
+      ..searchBy = fields[2] as String;
   }
 
   @override
   void write(BinaryWriter writer, SearchHistory obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.query)
       ..writeByte(1)
-      ..write(obj.timestamp);
+      ..write(obj.timestamp)
+      ..writeByte(2)
+      ..write(obj.searchBy);
   }
 
   @override

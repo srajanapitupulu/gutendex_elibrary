@@ -63,13 +63,13 @@ class _BookCardState extends State<BookCard> {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(12)),
                 child: CachedNetworkImage(
-                  imageUrl: "widget.book.coverUrl",
+                  imageUrl: widget.book.coverUrl,
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                   width: double.infinity,
-                  fit: BoxFit.fitHeight,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

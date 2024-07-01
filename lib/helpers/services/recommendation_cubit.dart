@@ -19,4 +19,29 @@ class RecommendedBooksCubit extends Cubit<RecommendedBooksState> {
       emit(RecommendedBooksError(e.toString()));
     }
   }
+
+  void fetchBooksByKeyword(String keyword) async {
+    emit(RecommendedBooksLoading());
+    try {
+      final response = await apiService.fetchBooksByKeyword(keyword);
+      emit(RecommendedBooksLoaded(response.books, response.nextUrl));
+    } catch (e) {
+      emit(RecommendedBooksError(e.toString()));
+    }
+  }
+
+  Future<void> fetchMoreBooks(String nextUrl) async {
+    if (state is RecommendedBooksLoaded) {
+      final currentState = state as RecommendedBooksLoaded;
+      try {
+        final response = await apiService.fetchBooksFromUrl(nextUrl);
+        emit(RecommendedBooksLoaded(
+          currentState.books + response.books,
+          response.nextUrl,
+        ));
+      } catch (e) {
+        emit(RecommendedBooksError(e.toString()));
+      }
+    }
+  }
 }

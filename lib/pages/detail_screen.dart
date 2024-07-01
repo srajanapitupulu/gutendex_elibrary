@@ -47,6 +47,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: whiteBGColor,
       appBar: AppBar(
         elevation: 3.0,
         backgroundColor: whiteBGColor,
@@ -63,18 +64,21 @@ class _BookDetailPageState extends State<BookDetailPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Center(
-              child: CachedNetworkImage(
-                imageUrl: widget.book.coverUrl,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(),
+            Container(
+              color: whiteColor,
+              child: Center(
+                child: CachedNetworkImage(
+                  imageUrl: widget.book.coverUrl,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) {
+                    return const Icon(Icons.error);
+                  },
+                  width: ScreenUtil.screenSize(context).width * 0.5,
+                  height: ScreenUtil.screenSize(context).width * 0.8,
+                  fit: BoxFit.contain,
                 ),
-                errorWidget: (context, url, error) {
-                  return const Icon(Icons.error);
-                },
-                width: ScreenUtil.screenSize(context).width * 0.5,
-                height: ScreenUtil.screenSize(context).width * 0.8,
-                fit: BoxFit.contain,
               ),
             ),
             Padding(
@@ -137,8 +141,19 @@ class _BookDetailPageState extends State<BookDetailPage> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  SubjectsList(subjects: widget.book.subjects),
-                  const SizedBox(height: 30),
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 1,
+                          color: grayColor,
+                        ),
+                      ),
+                    ),
+                    child: SubjectsList(subjects: widget.book.subjects),
+                  ),
+                  const SizedBox(height: 20),
                   const Text(
                     'More by this Author',
                     style: TextStyle(
@@ -146,7 +161,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 15),
                   BlocProvider(
                     create: (context) => RecommendedBooksCubit(ApiService())
                       ..fetchBooksByAuthor(

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:gutendex_elibrary/pages/search_result_screen.dart';
+import 'package:hive/hive.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:gutendex_elibrary/helpers/constants/colors.dart';
 import 'package:gutendex_elibrary/models/search_history.dart';
-import 'package:hive/hive.dart';
 
 class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
+
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
-  String _searchType = 'Author';
   List<SearchHistory> _searchHistory = [];
 
   @override
@@ -24,25 +27,37 @@ class _SearchPageState extends State<SearchPage> {
     final box = Hive.box<SearchHistory>('searchHistoryBox');
     setState(() {
       _searchHistory = box.values.toList();
+      _searchHistory.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     });
   }
 
-  void _saveSearchHistory(String query) {
+  void _saveSearchHistory(String query, int selectedIdx) {
     final box = Hive.box<SearchHistory>('searchHistoryBox');
     final searchHistory = SearchHistory()
       ..query = query
+      ..searchBy = "Keyword"
       ..timestamp = DateTime.now();
-    box.add(searchHistory);
+
+    if (selectedIdx == -999) {
+      box.add(searchHistory);
+    } else {
+      box.putAt(selectedIdx, searchHistory);
+    }
+
     _loadSearchHistory();
   }
 
-  void _performSearch() async {
+  void _performSearch({int selectedIdx = -999}) async {
     final query = _searchController.text;
     if (query.isNotEmpty) {
-      _saveSearchHistory(query);
-      // Implement your search logic here, for example using ApiService
-      // final books = await ApiService().searchBooks(query, _searchType);
-      // Display search results
+      _saveSearchHistory(query, selectedIdx);
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => SearchResultScreen(
+            keyword: query,
+          ),
+        ),
+      );
     }
   }
 
@@ -62,65 +77,74 @@ class _SearchPageState extends State<SearchPage> {
           )),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            color: primaryColor,
+            child: Row(
               children: [
-                DropdownButton<String>(
-                  value: _searchType,
-                  items: <String>['Author', 'Keyword'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _searchType = newValue!;
-                    });
-                  },
-                ),
                 Expanded(
+                  flex: 1,
                   child: TextField(
                     controller: _searchController,
-                    decoration: InputDecoration(
-                      hintText: 'Search...',
-                      border: OutlineInputBorder(),
-                    ),
+                    style: const TextStyle(color: whiteColor),
+                    decoration: const InputDecoration(
+                        hintStyle: TextStyle(color: whiteColor),
+                        hintText: 'Search...',
+                        border: InputBorder.none),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.search),
+                  icon: const Icon(
+                    Icons.search,
+                    color: whiteColor,
+                  ),
                   onPressed: _performSearch,
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            Text(
-              'Search History',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _searchHistory.length,
+              itemBuilder: (context, index) {
+                final history = _searchHistory[index];
+                return ListTile(
+                  title: Text(
+                    history.query,
+                    style: const TextStyle(
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  subtitle: Text(
+                    timeago.format(history.timestamp),
+                    style: const TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                  leading: const Icon(
+                    Icons.history,
+                    color: primaryColor,
+                  ),
+                  trailing: const Icon(
+                    Icons.call_made,
+                    color: primaryColor,
+                  ),
+                  onTap: () {
+                    _searchController.text = history.query;
+                    _performSearch(selectedIdx: history.key);
+                  },
+                );
+              },
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _searchHistory.length,
-                itemBuilder: (context, index) {
-                  final history = _searchHistory[index];
-                  return ListTile(
-                    title: Text(history.query),
-                    subtitle: Text(history.timestamp.toString()),
-                    onTap: () {
-                      _searchController.text = history.query;
-                      _performSearch();
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
