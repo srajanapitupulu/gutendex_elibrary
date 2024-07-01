@@ -8,10 +8,8 @@ This Flutter application serves as an ebook reader, leveraging the Gutenberg Pro
 - [Installation](#installation)
 - [Running the App](#running-the-app)
 - [Dependencies](#dependencies)
-- [Project Structure](#project-structure)
 - [Testing](#testing)
 - [API](#api)
-- [Screenshots](#screenshots)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -35,8 +33,8 @@ This Flutter application serves as an ebook reader, leveraging the Gutenberg Pro
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/flutter-ebook-reader.git
-cd flutter-ebook-reader
+git clone https://github.com/srajanapitupulu/gutendex_elibrary.git
+cd gutendex_elibrary
 ```
 
 ### Install Dependencies
