@@ -1,5 +1,5 @@
 # gutendex_elibrary
-This is a project challenge for a position in Palm Code
+This is a project challenge for a position in Palm Code. 
 This Flutter application serves as an ebook reader, leveraging the Gutenberg Project's API to fetch and display books. The app includes features like book listing, searching, book details, and the ability to like and save books. The app also caches book data and images for offline use and employs the BLoC pattern for state management.
 
 ## Table of Contents
