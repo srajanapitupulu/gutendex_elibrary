@@ -53,84 +53,65 @@ flutter packages pub run build_runner build
 ### API Configuration
 If you need to configure the API endpoint, update the ApiService class in lib/api_service.dart.
 
-#### Running the App
+## Running the App
 
-##### For Android
+### For Android
+
 ```bash
 flutter run
 ```
 
-##### For iOS
+### For iOS
+
 ```bash
-Copy code
 flutter run
 ```
 
-##### For Web
+### For Web
+
 ```bash
-Copy code
 flutter run -d chrome
 ```
 
 ## Dependencies
+
 The project uses several Flutter packages:
 
-- flutter_bloc: State management
-- equatable: Simplifies equality comparisons
-- http: HTTP requests
-- hive: Lightweight and fast key-value database
-- hive_flutter: Extensions for Flutter
-- path_provider: Accessing common storage locations
-- cached_network_image: Caching images
-- lottie: Animation library for Flutter
-- bloc_test: Utilities for testing BLoC
-- mocktail: Mocking library for Dart
-- hive_test: Testing Hive
+- `flutter_bloc`: State management
+- `equatable`: Simplifies equality comparisons
+- `http`: HTTP requests
+- `hive`: Lightweight and fast key-value database
+- `hive_flutter`: Extensions for Flutter
+- `path_provider`: Accessing common storage locations
+- `cached_network_image`: Caching images
+- `lottie`: Animation library for Flutter
+- `bloc_test`: Utilities for testing BLoC
+- `mocktail`: Mocking library for Dart
+- `hive_test`: Testing Hive
 
-
-## Project Structure
-```bash
-lib/
-├── api_service.dart          # API service for fetching books
-├── blocs/                    # BLoC and Cubit implementations
-│   ├── book_cubit.dart       # Cubit for managing book states
-│   ├── book_state.dart       # States for BookCubit
-├── models/                   # Data models
-│   ├── book.dart             # Book model
-│   ├── api_response.dart     # API response model
-├── repositories/             # Data repositories
-│   ├── book_repository.dart  # Repository for book data
-├── screens/                  # UI screens
-│   ├── book_detail.dart      # Book detail screen
-│   ├── book_list.dart        # Book listing screen
-│   ├── search_page.dart      # Search screen
-├── widgets/                  # Reusable widgets
-│   ├── book_card.dart        # Widget for displaying a book card
-│   ├── recommended_books.dart# Widget for displaying recommended books
-├── main.dart                 # Main entry point
-```
 
 ## Testing
+
 To run the tests, use the following command:
 
 ```bash
 flutter test
 ```
 
-### Testing the BookCubit
-The project includes unit tests for the BookCubit and its states. The tests are located in the test/ directory.
-
 ## API
-The app uses the Gutenberg Project's API to fetch book data. You can explore the API documentation here.
 
-Contributing
+The app uses the Gutenberg Project's API to fetch book data. You can explore the API documentation [here](https://gutendex.com/).
+
+## Contributing
+
 If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome.
 
-Fork the repository.
-Create your feature branch (git checkout -b feature/AmazingFeature).
-Commit your changes (git commit -m 'Add some AmazingFeature').
-Push to the branch (git push origin feature/AmazingFeature).
-Open a pull request.
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a pull request.
 
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## License
+
+This project is licensed under the GPL 3.0 License - see the LICENSE file for details.
