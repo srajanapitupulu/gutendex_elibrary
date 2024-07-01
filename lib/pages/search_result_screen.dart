@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gutendex_elibrary/helpers/services/api_service.dart';
-
-import 'package:gutendex_elibrary/helpers/services/book_cubit.dart';
 import 'package:gutendex_elibrary/helpers/constants/colors.dart';
 import 'package:gutendex_elibrary/helpers/services/recommendation_cubit.dart';
 import 'package:gutendex_elibrary/helpers/ui/book_card.dart';
-import 'package:gutendex_elibrary/pages/search_screen.dart';
 
 class SearchResultScreen extends StatefulWidget {
   final String keyword;

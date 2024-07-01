@@ -82,7 +82,7 @@ class _SearchPageState extends State<SearchPage> {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 18),
-            color: grayColor,
+            color: whiteBGColor,
             child: Row(
               children: [
                 Expanded(
