@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gutendex_elibrary/helpers/constants/colors.dart';
 import 'package:gutendex_elibrary/models/search_history.dart';
 import 'package:hive/hive.dart';
 
@@ -19,6 +20,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _loadSearchHistory() async {
+    await Hive.openBox<SearchHistory>('searchHistoryBox');
     final box = Hive.box<SearchHistory>('searchHistoryBox');
     setState(() {
       _searchHistory = box.values.toList();
@@ -48,7 +50,17 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Books'),
+        elevation: 3.0,
+        backgroundColor: whiteBGColor,
+        foregroundColor: primaryColor,
+        shadowColor: blackColor,
+        title: const Text(
+          "Search Books",
+          style: (TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          )),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

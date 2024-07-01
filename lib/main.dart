@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gutendex_elibrary/helpers/constants/colors.dart';
 import 'package:gutendex_elibrary/models/book.dart';
+import 'package:gutendex_elibrary/models/search_history.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:gutendex_elibrary/splash_screen.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -8,6 +9,7 @@ import 'package:showcaseview/showcaseview.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(BookAdapter());
+  Hive.registerAdapter(SearchHistoryAdapter());
   runApp(const MyApp());
 }
 

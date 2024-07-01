@@ -51,7 +51,7 @@ class _BookCardState extends State<BookCard> {
         );
       },
       child: Card(
-        elevation: 4,
+        elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),

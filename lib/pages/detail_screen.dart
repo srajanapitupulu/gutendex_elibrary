@@ -48,15 +48,17 @@ class _BookDetailPageState extends State<BookDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 3.0,
+        backgroundColor: whiteBGColor,
+        foregroundColor: primaryColor,
+        shadowColor: blackColor,
         title: Text(
           widget.book.title,
-          style: const TextStyle(
-            color: blackColor,
+          style: (const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-          ),
+          )),
         ),
-        foregroundColor: primaryColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -111,14 +113,28 @@ class _BookDetailPageState extends State<BookDetailPage> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    "Language: ",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: blackColor,
-                      fontFamily: 'JosefinSans',
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Language: ",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: blackColor,
+                          fontFamily: 'JosefinSans',
+                        ),
+                      ),
+                      Text(
+                        widget.book.languages.map((e) => e).join(','),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: blackColor,
+                          fontFamily: 'JosefinSans',
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
                   SubjectsList(subjects: widget.book.subjects),

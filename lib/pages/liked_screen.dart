@@ -29,9 +29,10 @@ class _LikedScreenState extends State<LikedScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        elevation: 0.0,
-        foregroundColor: whiteBGColor,
-        backgroundColor: primaryColor,
+        elevation: 3.0,
+        backgroundColor: whiteBGColor,
+        foregroundColor: primaryColor,
+        shadowColor: blackColor,
         title: const Text(
           "Liked Books",
           style: (TextStyle(
@@ -54,6 +55,7 @@ class _LikedScreenState extends State<LikedScreen> {
           final likedBooks = snapshot.data!;
 
           return GridView.builder(
+            padding: const EdgeInsets.all(8.0),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 2,
               childAspectRatio: 0.5,

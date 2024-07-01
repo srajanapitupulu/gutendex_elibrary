@@ -27,12 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteBGColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        elevation: 0.0,
-        foregroundColor: whiteBGColor,
-        backgroundColor: primaryColor,
+        elevation: 3.0,
+        backgroundColor: whiteBGColor,
+        foregroundColor: primaryColor,
+        shadowColor: blackColor,
         title: const Text(
           "Gutendex eLibrary",
           style: (TextStyle(
@@ -69,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return false;
               },
               child: GridView.builder(
+                padding: const EdgeInsets.all(8.0),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount:
                       MediaQuery.of(context).size.width > 600 ? 4 : 2,
