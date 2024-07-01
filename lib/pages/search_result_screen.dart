@@ -32,8 +32,8 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 3.0,
-        backgroundColor: whiteBGColor,
-        foregroundColor: primaryColor,
+        backgroundColor: primaryColor,
+        foregroundColor: whiteColor,
         shadowColor: blackColor,
         title: Text(
           widget.keyword,

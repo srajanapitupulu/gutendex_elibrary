@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
         child: const HomeScreen(),
       ),
       const LikedScreen(),
-      const HistoryScreen()
+      // const HistoryScreen()
     ];
 
     return listOfWidgets;
@@ -59,12 +59,12 @@ class _MainScreenState extends State<MainScreen> {
           AssetImage("assets/icons/ic_like.png"),
         ),
       ),
-      const BottomNavigationBarItem(
-        label: "",
-        icon: ImageIcon(
-          AssetImage("assets/icons/ic_history.png"),
-        ),
-      ),
+      // const BottomNavigationBarItem(
+      //   label: "",
+      //   icon: ImageIcon(
+      //     AssetImage("assets/icons/ic_history.png"),
+      //   ),
+      // ),
     ];
 
     return navBarItems;

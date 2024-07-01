@@ -66,8 +66,8 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 3.0,
-        backgroundColor: whiteBGColor,
-        foregroundColor: primaryColor,
+        backgroundColor: primaryColor,
+        foregroundColor: whiteColor,
         shadowColor: blackColor,
         title: const Text(
           "Search Books",
@@ -82,16 +82,16 @@ class _SearchPageState extends State<SearchPage> {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 18),
-            color: primaryColor,
+            color: grayColor,
             child: Row(
               children: [
                 Expanded(
                   flex: 1,
                   child: TextField(
                     controller: _searchController,
-                    style: const TextStyle(color: whiteColor),
+                    style: const TextStyle(color: primaryColor),
                     decoration: const InputDecoration(
-                        hintStyle: TextStyle(color: whiteColor),
+                        hintStyle: TextStyle(color: primaryColor),
                         hintText: 'Search...',
                         border: InputBorder.none),
                   ),
@@ -99,7 +99,7 @@ class _SearchPageState extends State<SearchPage> {
                 IconButton(
                   icon: const Icon(
                     Icons.search,
-                    color: whiteColor,
+                    color: primaryColor,
                   ),
                   onPressed: _performSearch,
                 ),

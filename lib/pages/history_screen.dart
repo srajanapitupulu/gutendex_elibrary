@@ -30,8 +30,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 3.0,
-        backgroundColor: whiteBGColor,
-        foregroundColor: primaryColor,
+        backgroundColor: primaryColor,
+        foregroundColor: whiteColor,
         shadowColor: blackColor,
         title: const Text(
           "Reading History",

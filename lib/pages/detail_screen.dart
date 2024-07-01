@@ -50,8 +50,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
       backgroundColor: whiteBGColor,
       appBar: AppBar(
         elevation: 3.0,
-        backgroundColor: whiteBGColor,
-        foregroundColor: primaryColor,
+        backgroundColor: primaryColor,
+        foregroundColor: whiteColor,
         shadowColor: blackColor,
         title: Text(
           widget.book.title,
